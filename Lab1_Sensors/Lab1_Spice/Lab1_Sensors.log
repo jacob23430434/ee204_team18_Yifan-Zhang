@@ -1,0 +1,17 @@
+LTspice 24.1.10 for Windows
+Circuit: D:\Onedrive\OneDrive - The University of Nottingham Ningbo China\桌面\UOA-s2\EE209\lab\Lab1_Sensors\Lab1_Spice\Lab1_Sensors.net
+Start Time: Sun Jul 26 12:51:32 2026
+solver = Normal
+Maximum thread count: 14
+tnom = 27
+temp = 27
+method = trap
+WARNING: Node n010 is floating.
+WARNING: Node n011 is floating.
+
+Direct Newton iteration for .op point succeeded.
+Total elapsed time: 0.125 seconds.
+
+Files loaded:
+D:\Onedrive\OneDrive - The University of Nottingham Ningbo China\桌面\UOA-s2\EE209\lab\Lab1_Sensors\Lab1_Spice\Lab1_Sensors.net
+
