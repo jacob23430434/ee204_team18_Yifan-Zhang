@@ -29,6 +29,10 @@ int main(void)
     {
 		_delay_ms(500);//delay 0.5s
 		uart_transmit_byte('3');//transmit the ASCII 3
+		uart_transmit_byte('4');//transmit the ASCII 4
+		uart_transmit_byte('5');//transmit the ASCII 5
+		uart_transmit_byte(32);//transmit the ASCII space
+
     }
 }
 
