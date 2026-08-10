@@ -13,21 +13,21 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000002f0  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000038  00000000  00000000  00000330  2**0
+  5 .debug_aranges 00000050  00000000  00000000  00000330  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000815  00000000  00000000  00000368  2**0
+  6 .debug_info   0000089c  00000000  00000000  00000380  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000006dd  00000000  00000000  00000b7d  2**0
+  7 .debug_abbrev 00000728  00000000  00000000  00000c1c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000002c0  00000000  00000000  0000125a  2**0
+  8 .debug_line   0000033e  00000000  00000000  00001344  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000090  00000000  00000000  0000151c  2**2
+  9 .debug_frame  000000a4  00000000  00000000  00001684  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000003f1  00000000  00000000  000015ac  2**0
+ 10 .debug_str    000003fd  00000000  00000000  00001728  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000001a2  00000000  00000000  0000199d  2**0
+ 11 .debug_loc    000001a2  00000000  00000000  00001b25  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000070  00000000  00000000  00001b3f  2**0
+ 12 .debug_ranges 00000078  00000000  00000000  00001cc7  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -81,285 +81,288 @@ Disassembly of section .text:
   7e:	ac 37       	cpi	r26, 0x7C	; 124
   80:	b2 07       	cpc	r27, r18
   82:	e1 f7       	brne	.-8      	; 0x7c <.do_clear_bss_loop>
-  84:	0e 94 8b 00 	call	0x116	; 0x116 <main>
+  84:	0e 94 74 00 	call	0xe8	; 0xe8 <main>
   88:	0c 94 23 01 	jmp	0x246	; 0x246 <_exit>
 
 0000008c <__bad_interrupt>:
   8c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-00000090 <uart_init>:
+00000090 <prime_number>:
+
 uint16_t primes[62]; // store the all prime numbers within 300 as global scope
 
-// This function configures the UART to 9600 baud, 8N1 with no parity
-void uart_init(void)
-{
-	UCSR0A = 0b00000000;    // None of the settings here are used
-  90:	10 92 c0 00 	sts	0x00C0, r1	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
-	UCSR0B = 0b00001000;    // Set TXEN0 bit to 1 (enable transmit) and UCSZ02 bit to 0 (8 data bits)
-  94:	88 e0       	ldi	r24, 0x08	; 8
-  96:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7f80c1>
-	// To improve readability we should aim to write this in the form "UCSR0B = (1<<TXEN0);"
-	UCSR0C = 0b00000110;    // UMSEL0[1..0]=00 (UART mode), UPM0[1..0]=00 (no parity),
-  9a:	86 e0       	ldi	r24, 0x06	; 6
-  9c:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7f80c2>
-	// USBS0=0 (1 stop-bit), UCSZ0[1..0]=11 (8 data bits)
-	UBRR0 = 12;// Set UBRR0 value to 12
-  a0:	8c e0       	ldi	r24, 0x0C	; 12
-  a2:	90 e0       	ldi	r25, 0x00	; 0
-  a4:	90 93 c5 00 	sts	0x00C5, r25	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7f80c5>
-  a8:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7f80c4>
-  ac:	08 95       	ret
-
-000000ae <uart_transmit_byte>:
-}
-// This function transmits a single byte via the UART
-void uart_transmit_byte(char byte){
-	while ((UCSR0A & 0b00100000) == 0){//Data Register Empty flag when set indicates if UDR0 is ready to be loaded with new data
-  ae:	e0 ec       	ldi	r30, 0xC0	; 192
-  b0:	f0 e0       	ldi	r31, 0x00	; 0
-  b2:	90 81       	ld	r25, Z
-  b4:	95 ff       	sbrs	r25, 5
-  b6:	fd cf       	rjmp	.-6      	; 0xb2 <uart_transmit_byte+0x4>
-		;//wait until the bit 5 in UCSR0A equal to 1
-	}
-	// Put the byte to be sent into the UDR0 register
-	UDR0 = byte;
-  b8:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
-  bc:	08 95       	ret
-
-000000be <prime_number>:
-}
 // This function is to generate prime numbers
 void prime_number(void)
 {
-  be:	cf 93       	push	r28
-  c0:	df 93       	push	r29
+  90:	cf 93       	push	r28
+  92:	df 93       	push	r29
 	int count = 0;
 	for(uint16_t n = 2; n <= 300;n++ ){
-  c2:	e2 e0       	ldi	r30, 0x02	; 2
-  c4:	f0 e0       	ldi	r31, 0x00	; 0
-	UDR0 = byte;
-}
+  94:	e2 e0       	ldi	r30, 0x02	; 2
+  96:	f0 e0       	ldi	r31, 0x00	; 0
+uint16_t primes[62]; // store the all prime numbers within 300 as global scope
+
 // This function is to generate prime numbers
 void prime_number(void)
 {
 	int count = 0;
-  c6:	c0 e0       	ldi	r28, 0x00	; 0
-  c8:	d0 e0       	ldi	r29, 0x00	; 0
-  ca:	11 c0       	rjmp	.+34     	; 0xee <prime_number+0x30>
+  98:	c0 e0       	ldi	r28, 0x00	; 0
+  9a:	d0 e0       	ldi	r29, 0x00	; 0
+  9c:	11 c0       	rjmp	.+34     	; 0xc0 <prime_number+0x30>
 	for(uint16_t n = 2; n <= 300;n++ ){
 		bool isprime = true;
 		for(uint16_t i = 2; i<n;i++){
 			// judge if n is a prime number
 			if (n % i==0)
-  cc:	cf 01       	movw	r24, r30
-  ce:	b9 01       	movw	r22, r18
-  d0:	0e 94 00 01 	call	0x200	; 0x200 <__udivmodhi4>
-  d4:	89 2b       	or	r24, r25
-  d6:	31 f0       	breq	.+12     	; 0xe4 <prime_number+0x26>
+  9e:	cf 01       	movw	r24, r30
+  a0:	b9 01       	movw	r22, r18
+  a2:	0e 94 00 01 	call	0x200	; 0x200 <__udivmodhi4>
+  a6:	89 2b       	or	r24, r25
+  a8:	31 f0       	breq	.+12     	; 0xb6 <prime_number+0x26>
 void prime_number(void)
 {
 	int count = 0;
 	for(uint16_t n = 2; n <= 300;n++ ){
 		bool isprime = true;
 		for(uint16_t i = 2; i<n;i++){
-  d8:	2f 5f       	subi	r18, 0xFF	; 255
-  da:	3f 4f       	sbci	r19, 0xFF	; 255
-  dc:	2e 17       	cp	r18, r30
-  de:	3f 07       	cpc	r19, r31
-  e0:	a9 f7       	brne	.-22     	; 0xcc <prime_number+0xe>
-  e2:	0d c0       	rjmp	.+26     	; 0xfe <prime_number+0x40>
-}
+  aa:	2f 5f       	subi	r18, 0xFF	; 255
+  ac:	3f 4f       	sbci	r19, 0xFF	; 255
+  ae:	2e 17       	cp	r18, r30
+  b0:	3f 07       	cpc	r19, r31
+  b2:	a9 f7       	brne	.-22     	; 0x9e <prime_number+0xe>
+  b4:	0d c0       	rjmp	.+26     	; 0xd0 <prime_number+0x40>
+
 // This function is to generate prime numbers
 void prime_number(void)
 {
 	int count = 0;
 	for(uint16_t n = 2; n <= 300;n++ ){
-  e4:	31 96       	adiw	r30, 0x01	; 1
-  e6:	ed 32       	cpi	r30, 0x2D	; 45
-  e8:	81 e0       	ldi	r24, 0x01	; 1
-  ea:	f8 07       	cpc	r31, r24
-  ec:	89 f0       	breq	.+34     	; 0x110 <prime_number+0x52>
+  b6:	31 96       	adiw	r30, 0x01	; 1
+  b8:	ed 32       	cpi	r30, 0x2D	; 45
+  ba:	81 e0       	ldi	r24, 0x01	; 1
+  bc:	f8 07       	cpc	r31, r24
+  be:	89 f0       	breq	.+34     	; 0xe2 <prime_number+0x52>
 		bool isprime = true;
 		for(uint16_t i = 2; i<n;i++){
-  ee:	e3 30       	cpi	r30, 0x03	; 3
-  f0:	f1 05       	cpc	r31, r1
-  f2:	28 f0       	brcs	.+10     	; 0xfe <prime_number+0x40>
+  c0:	e3 30       	cpi	r30, 0x03	; 3
+  c2:	f1 05       	cpc	r31, r1
+  c4:	28 f0       	brcs	.+10     	; 0xd0 <prime_number+0x40>
 			// judge if n is a prime number
 			if (n % i==0)
-  f4:	e0 ff       	sbrs	r30, 0
-  f6:	f6 cf       	rjmp	.-20     	; 0xe4 <prime_number+0x26>
-  f8:	22 e0       	ldi	r18, 0x02	; 2
-  fa:	30 e0       	ldi	r19, 0x00	; 0
-  fc:	ed cf       	rjmp	.-38     	; 0xd8 <prime_number+0x1a>
+  c6:	e0 ff       	sbrs	r30, 0
+  c8:	f6 cf       	rjmp	.-20     	; 0xb6 <prime_number+0x26>
+  ca:	22 e0       	ldi	r18, 0x02	; 2
+  cc:	30 e0       	ldi	r19, 0x00	; 0
+  ce:	ed cf       	rjmp	.-38     	; 0xaa <prime_number+0x1a>
 				break;
 			}
 		}
 		if (isprime)
 		{
 			primes[count] = n;
-  fe:	de 01       	movw	r26, r28
- 100:	aa 0f       	add	r26, r26
- 102:	bb 1f       	adc	r27, r27
- 104:	a0 50       	subi	r26, 0x00	; 0
- 106:	bf 4f       	sbci	r27, 0xFF	; 255
- 108:	ed 93       	st	X+, r30
- 10a:	fc 93       	st	X, r31
+  d0:	de 01       	movw	r26, r28
+  d2:	aa 0f       	add	r26, r26
+  d4:	bb 1f       	adc	r27, r27
+  d6:	a0 50       	subi	r26, 0x00	; 0
+  d8:	bf 4f       	sbci	r27, 0xFF	; 255
+  da:	ed 93       	st	X+, r30
+  dc:	fc 93       	st	X, r31
 			count++;
- 10c:	21 96       	adiw	r28, 0x01	; 1
- 10e:	ea cf       	rjmp	.-44     	; 0xe4 <prime_number+0x26>
+  de:	21 96       	adiw	r28, 0x01	; 1
+  e0:	ea cf       	rjmp	.-44     	; 0xb6 <prime_number+0x26>
 		}
 	}
 }
- 110:	df 91       	pop	r29
- 112:	cf 91       	pop	r28
- 114:	08 95       	ret
+  e2:	df 91       	pop	r29
+  e4:	cf 91       	pop	r28
+  e6:	08 95       	ret
 
-00000116 <main>:
+000000e8 <main>:
 int main(void)
 {
- 116:	bf 92       	push	r11
- 118:	cf 92       	push	r12
- 11a:	df 92       	push	r13
- 11c:	ef 92       	push	r14
- 11e:	ff 92       	push	r15
- 120:	0f 93       	push	r16
- 122:	1f 93       	push	r17
- 124:	cf 93       	push	r28
- 126:	df 93       	push	r29
+  e8:	bf 92       	push	r11
+  ea:	cf 92       	push	r12
+  ec:	df 92       	push	r13
+  ee:	ef 92       	push	r14
+  f0:	ff 92       	push	r15
+  f2:	0f 93       	push	r16
+  f4:	1f 93       	push	r17
+  f6:	cf 93       	push	r28
+  f8:	df 93       	push	r29
 	uart_init();//initialize the registers
- 128:	0e 94 48 00 	call	0x90	; 0x90 <uart_init>
+  fa:	0e 94 e9 00 	call	0x1d2	; 0x1d2 <uart_init>
 	prime_number();//generate prime numbers
- 12c:	0e 94 5f 00 	call	0xbe	; 0xbe <prime_number>
- 130:	00 e0       	ldi	r16, 0x00	; 0
- 132:	11 e0       	ldi	r17, 0x01	; 1
- 134:	0f 2e       	mov	r0, r31
- 136:	fc e7       	ldi	r31, 0x7C	; 124
- 138:	ef 2e       	mov	r14, r31
- 13a:	f1 e0       	ldi	r31, 0x01	; 1
- 13c:	ff 2e       	mov	r15, r31
- 13e:	f0 2d       	mov	r31, r0
+  fe:	0e 94 48 00 	call	0x90	; 0x90 <prime_number>
+ 102:	00 e0       	ldi	r16, 0x00	; 0
+ 104:	11 e0       	ldi	r17, 0x01	; 1
+ 106:	0f 2e       	mov	r0, r31
+ 108:	fc e7       	ldi	r31, 0x7C	; 124
+ 10a:	ef 2e       	mov	r14, r31
+ 10c:	f1 e0       	ldi	r31, 0x01	; 1
+ 10e:	ff 2e       	mov	r15, r31
+ 110:	f0 2d       	mov	r31, r0
 		int tens = ((primes[index] % 100 ) / 10);
 		// Get the tens digit
 		int ones = primes[index] % 10;
 		// Get the ones digit
 		uart_transmit_byte(handured + '0');//transmit the hundreds digit
 		uart_transmit_byte(tens + '0');//transmit the tens digit
- 140:	0f 2e       	mov	r0, r31
- 142:	f4 e6       	ldi	r31, 0x64	; 100
- 144:	bf 2e       	mov	r11, r31
- 146:	f0 2d       	mov	r31, r0
+ 112:	0f 2e       	mov	r0, r31
+ 114:	f4 e6       	ldi	r31, 0x64	; 100
+ 116:	bf 2e       	mov	r11, r31
+ 118:	f0 2d       	mov	r31, r0
 	prime_number();//generate prime numbers
     while (1) 
     {
 		for(int index = 0; index<=61; index++){// set up a loop to run 62 times
 		//_delay_ms(500);//delay 0.5s
 		int handured = primes[index] / 100;
- 148:	f8 01       	movw	r30, r16
- 14a:	c1 91       	ld	r28, Z+
- 14c:	d1 91       	ld	r29, Z+
- 14e:	8f 01       	movw	r16, r30
+ 11a:	f8 01       	movw	r30, r16
+ 11c:	c1 91       	ld	r28, Z+
+ 11e:	d1 91       	ld	r29, Z+
+ 120:	8f 01       	movw	r16, r30
 		// Get the hundreds digit
 		int tens = ((primes[index] % 100 ) / 10);
 		// Get the tens digit
 		int ones = primes[index] % 10;
 		// Get the ones digit
 		uart_transmit_byte(handured + '0');//transmit the hundreds digit
- 150:	9e 01       	movw	r18, r28
- 152:	36 95       	lsr	r19
- 154:	27 95       	ror	r18
- 156:	36 95       	lsr	r19
- 158:	27 95       	ror	r18
- 15a:	ab e7       	ldi	r26, 0x7B	; 123
- 15c:	b4 e1       	ldi	r27, 0x14	; 20
- 15e:	0e 94 14 01 	call	0x228	; 0x228 <__umulhisi3>
- 162:	6c 01       	movw	r12, r24
- 164:	d6 94       	lsr	r13
- 166:	c7 94       	ror	r12
- 168:	80 e3       	ldi	r24, 0x30	; 48
- 16a:	8c 0d       	add	r24, r12
- 16c:	0e 94 57 00 	call	0xae	; 0xae <uart_transmit_byte>
+ 122:	9e 01       	movw	r18, r28
+ 124:	36 95       	lsr	r19
+ 126:	27 95       	ror	r18
+ 128:	36 95       	lsr	r19
+ 12a:	27 95       	ror	r18
+ 12c:	ab e7       	ldi	r26, 0x7B	; 123
+ 12e:	b4 e1       	ldi	r27, 0x14	; 20
+ 130:	0e 94 14 01 	call	0x228	; 0x228 <__umulhisi3>
+ 134:	6c 01       	movw	r12, r24
+ 136:	d6 94       	lsr	r13
+ 138:	c7 94       	ror	r12
+ 13a:	80 e3       	ldi	r24, 0x30	; 48
+ 13c:	8c 0d       	add	r24, r12
+ 13e:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <uart_transmit_byte>
 		uart_transmit_byte(tens + '0');//transmit the tens digit
- 170:	bc 9c       	mul	r11, r12
- 172:	c0 01       	movw	r24, r0
- 174:	bd 9c       	mul	r11, r13
- 176:	90 0d       	add	r25, r0
- 178:	11 24       	eor	r1, r1
- 17a:	9e 01       	movw	r18, r28
- 17c:	28 1b       	sub	r18, r24
- 17e:	39 0b       	sbc	r19, r25
- 180:	ad ec       	ldi	r26, 0xCD	; 205
- 182:	bc ec       	ldi	r27, 0xCC	; 204
- 184:	0e 94 14 01 	call	0x228	; 0x228 <__umulhisi3>
- 188:	96 95       	lsr	r25
- 18a:	87 95       	ror	r24
- 18c:	96 95       	lsr	r25
- 18e:	87 95       	ror	r24
- 190:	96 95       	lsr	r25
- 192:	87 95       	ror	r24
- 194:	80 5d       	subi	r24, 0xD0	; 208
- 196:	0e 94 57 00 	call	0xae	; 0xae <uart_transmit_byte>
+ 142:	bc 9c       	mul	r11, r12
+ 144:	c0 01       	movw	r24, r0
+ 146:	bd 9c       	mul	r11, r13
+ 148:	90 0d       	add	r25, r0
+ 14a:	11 24       	eor	r1, r1
+ 14c:	9e 01       	movw	r18, r28
+ 14e:	28 1b       	sub	r18, r24
+ 150:	39 0b       	sbc	r19, r25
+ 152:	ad ec       	ldi	r26, 0xCD	; 205
+ 154:	bc ec       	ldi	r27, 0xCC	; 204
+ 156:	0e 94 14 01 	call	0x228	; 0x228 <__umulhisi3>
+ 15a:	96 95       	lsr	r25
+ 15c:	87 95       	ror	r24
+ 15e:	96 95       	lsr	r25
+ 160:	87 95       	ror	r24
+ 162:	96 95       	lsr	r25
+ 164:	87 95       	ror	r24
+ 166:	80 5d       	subi	r24, 0xD0	; 208
+ 168:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <uart_transmit_byte>
 		uart_transmit_byte(ones + '0');//transmit the ones digit
- 19a:	9e 01       	movw	r18, r28
- 19c:	ad ec       	ldi	r26, 0xCD	; 205
- 19e:	bc ec       	ldi	r27, 0xCC	; 204
- 1a0:	0e 94 14 01 	call	0x228	; 0x228 <__umulhisi3>
- 1a4:	96 95       	lsr	r25
- 1a6:	87 95       	ror	r24
- 1a8:	96 95       	lsr	r25
- 1aa:	87 95       	ror	r24
- 1ac:	96 95       	lsr	r25
- 1ae:	87 95       	ror	r24
- 1b0:	9c 01       	movw	r18, r24
- 1b2:	22 0f       	add	r18, r18
- 1b4:	33 1f       	adc	r19, r19
- 1b6:	88 0f       	add	r24, r24
- 1b8:	99 1f       	adc	r25, r25
- 1ba:	88 0f       	add	r24, r24
- 1bc:	99 1f       	adc	r25, r25
- 1be:	88 0f       	add	r24, r24
- 1c0:	99 1f       	adc	r25, r25
- 1c2:	82 0f       	add	r24, r18
- 1c4:	93 1f       	adc	r25, r19
- 1c6:	9e 01       	movw	r18, r28
- 1c8:	28 1b       	sub	r18, r24
- 1ca:	39 0b       	sbc	r19, r25
- 1cc:	c9 01       	movw	r24, r18
- 1ce:	80 5d       	subi	r24, 0xD0	; 208
- 1d0:	0e 94 57 00 	call	0xae	; 0xae <uart_transmit_byte>
+ 16c:	9e 01       	movw	r18, r28
+ 16e:	ad ec       	ldi	r26, 0xCD	; 205
+ 170:	bc ec       	ldi	r27, 0xCC	; 204
+ 172:	0e 94 14 01 	call	0x228	; 0x228 <__umulhisi3>
+ 176:	96 95       	lsr	r25
+ 178:	87 95       	ror	r24
+ 17a:	96 95       	lsr	r25
+ 17c:	87 95       	ror	r24
+ 17e:	96 95       	lsr	r25
+ 180:	87 95       	ror	r24
+ 182:	9c 01       	movw	r18, r24
+ 184:	22 0f       	add	r18, r18
+ 186:	33 1f       	adc	r19, r19
+ 188:	88 0f       	add	r24, r24
+ 18a:	99 1f       	adc	r25, r25
+ 18c:	88 0f       	add	r24, r24
+ 18e:	99 1f       	adc	r25, r25
+ 190:	88 0f       	add	r24, r24
+ 192:	99 1f       	adc	r25, r25
+ 194:	82 0f       	add	r24, r18
+ 196:	93 1f       	adc	r25, r19
+ 198:	9e 01       	movw	r18, r28
+ 19a:	28 1b       	sub	r18, r24
+ 19c:	39 0b       	sbc	r19, r25
+ 19e:	c9 01       	movw	r24, r18
+ 1a0:	80 5d       	subi	r24, 0xD0	; 208
+ 1a2:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <uart_transmit_byte>
 		uart_transmit_byte(44);//transmit the ASCII comma
- 1d4:	8c e2       	ldi	r24, 0x2C	; 44
- 1d6:	0e 94 57 00 	call	0xae	; 0xae <uart_transmit_byte>
+ 1a6:	8c e2       	ldi	r24, 0x2C	; 44
+ 1a8:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <uart_transmit_byte>
 		uart_transmit_byte(32);//transmit the ASCII space
- 1da:	80 e2       	ldi	r24, 0x20	; 32
- 1dc:	0e 94 57 00 	call	0xae	; 0xae <uart_transmit_byte>
+ 1ac:	80 e2       	ldi	r24, 0x20	; 32
+ 1ae:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <uart_transmit_byte>
 {
 	uart_init();//initialize the registers
 	prime_number();//generate prime numbers
     while (1) 
     {
 		for(int index = 0; index<=61; index++){// set up a loop to run 62 times
- 1e0:	0e 15       	cp	r16, r14
- 1e2:	1f 05       	cpc	r17, r15
- 1e4:	09 f0       	breq	.+2      	; 0x1e8 <main+0xd2>
- 1e6:	b0 cf       	rjmp	.-160    	; 0x148 <main+0x32>
+ 1b2:	0e 15       	cp	r16, r14
+ 1b4:	1f 05       	cpc	r17, r15
+ 1b6:	09 f0       	breq	.+2      	; 0x1ba <main+0xd2>
+ 1b8:	b0 cf       	rjmp	.-160    	; 0x11a <main+0x32>
 		uart_transmit_byte(44);//transmit the ASCII comma
 		uart_transmit_byte(32);//transmit the ASCII space
 		}
 		break;// end for
     }
 }
- 1e8:	80 e0       	ldi	r24, 0x00	; 0
- 1ea:	90 e0       	ldi	r25, 0x00	; 0
- 1ec:	df 91       	pop	r29
- 1ee:	cf 91       	pop	r28
- 1f0:	1f 91       	pop	r17
- 1f2:	0f 91       	pop	r16
- 1f4:	ff 90       	pop	r15
- 1f6:	ef 90       	pop	r14
- 1f8:	df 90       	pop	r13
- 1fa:	cf 90       	pop	r12
- 1fc:	bf 90       	pop	r11
+ 1ba:	80 e0       	ldi	r24, 0x00	; 0
+ 1bc:	90 e0       	ldi	r25, 0x00	; 0
+ 1be:	df 91       	pop	r29
+ 1c0:	cf 91       	pop	r28
+ 1c2:	1f 91       	pop	r17
+ 1c4:	0f 91       	pop	r16
+ 1c6:	ff 90       	pop	r15
+ 1c8:	ef 90       	pop	r14
+ 1ca:	df 90       	pop	r13
+ 1cc:	cf 90       	pop	r12
+ 1ce:	bf 90       	pop	r11
+ 1d0:	08 95       	ret
+
+000001d2 <uart_init>:
+
+
+// This function configures the UART to 9600 baud, 8N1 with no parity
+void uart_init(void)
+{
+	UCSR0A = 0b00000000;    // None of the settings here are used
+ 1d2:	10 92 c0 00 	sts	0x00C0, r1	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+	UCSR0B = 0b00001000;    // Set TXEN0 bit to 1 (enable transmit) and UCSZ02 bit to 0 (8 data bits)
+ 1d6:	88 e0       	ldi	r24, 0x08	; 8
+ 1d8:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7f80c1>
+	// To improve readability we should aim to write this in the form "UCSR0B = (1<<TXEN0);"
+	UCSR0C = 0b00000110;    // UMSEL0[1..0]=00 (UART mode), UPM0[1..0]=00 (no parity),
+ 1dc:	86 e0       	ldi	r24, 0x06	; 6
+ 1de:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7f80c2>
+	// USBS0=0 (1 stop-bit), UCSZ0[1..0]=11 (8 data bits)
+	UBRR0 = 12;// Set UBRR0 value to 12
+ 1e2:	8c e0       	ldi	r24, 0x0C	; 12
+ 1e4:	90 e0       	ldi	r25, 0x00	; 0
+ 1e6:	90 93 c5 00 	sts	0x00C5, r25	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7f80c5>
+ 1ea:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7f80c4>
+ 1ee:	08 95       	ret
+
+000001f0 <uart_transmit_byte>:
+}
+
+// This function transmits a single byte via the UART
+void uart_transmit_byte(char byte){
+	while ((UCSR0A & 0b00100000) == 0){//Data Register Empty flag when set indicates if UDR0 is ready to be loaded with new data
+ 1f0:	e0 ec       	ldi	r30, 0xC0	; 192
+ 1f2:	f0 e0       	ldi	r31, 0x00	; 0
+ 1f4:	90 81       	ld	r25, Z
+ 1f6:	95 ff       	sbrs	r25, 5
+ 1f8:	fd cf       	rjmp	.-6      	; 0x1f4 <uart_transmit_byte+0x4>
+		;//wait until the bit 5 in UCSR0A equal to 1
+	}
+	// Put the byte to be sent into the UDR0 register
+	UDR0 = byte;
+ 1fa:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
  1fe:	08 95       	ret
 
 00000200 <__udivmodhi4>:

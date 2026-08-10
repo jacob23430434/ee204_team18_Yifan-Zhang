@@ -21,6 +21,9 @@ Discarded input sections
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
+ .text          0x00000000        0x0 uart.o
+ .data          0x00000000        0x0 uart.o
+ .bss           0x00000000        0x0 uart.o
  .text          0x00000000        0x0 d:/application/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
  .data          0x00000000        0x0 d:/application/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
  .bss           0x00000000        0x0 d:/application/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
@@ -99,6 +102,7 @@ Linker script and memory map
 Address of section .data set to 0x800100
 LOAD D:/Application/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
 LOAD main.o
+LOAD uart.o
 START GROUP
 LOAD d:/application/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a
 END GROUP
@@ -293,17 +297,17 @@ END GROUP
                 0x0000008c                __vector_20
                 0x00000090                . = ALIGN (0x2)
  *(.text.*)
- .text.uart_init
-                0x00000090       0x1e main.o
-                0x00000090                uart_init
- .text.uart_transmit_byte
-                0x000000ae       0x10 main.o
-                0x000000ae                uart_transmit_byte
  .text.prime_number
-                0x000000be       0x58 main.o
-                0x000000be                prime_number
- .text.main     0x00000116       0xea main.o
-                0x00000116                main
+                0x00000090       0x58 main.o
+                0x00000090                prime_number
+ .text.main     0x000000e8       0xea main.o
+                0x000000e8                main
+ .text.uart_init
+                0x000001d2       0x1e uart.o
+                0x000001d2                uart_init
+ .text.uart_transmit_byte
+                0x000001f0       0x10 uart.o
+                0x000001f0                uart_transmit_byte
  .text.libgcc.div
                 0x00000200       0x28 d:/application/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
                 0x00000200                __udivmodhi4
@@ -408,6 +412,7 @@ END GROUP
  *(.comment)
  .comment       0x00000000       0x30 main.o
                                  0x31 (size before relaxing)
+ .comment       0x00000030       0x31 uart.o
 
 .note.gnu.avr.deviceinfo
                 0x00000000       0x40
@@ -429,38 +434,46 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0x38
+.debug_aranges  0x00000000       0x50
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x38 main.o
+                0x00000000       0x28 main.o
+ .debug_aranges
+                0x00000028       0x28 uart.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0x815
+.debug_info     0x00000000      0x89c
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 D:/Application/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_info    0x000005f4      0x221 main.o
+ .debug_info    0x000005f4      0x1eb main.o
+ .debug_info    0x000007df       0xbd uart.o
 
-.debug_abbrev   0x00000000      0x6dd
+.debug_abbrev   0x00000000      0x728
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 D:/Application/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_abbrev  0x000005a2      0x13b main.o
+ .debug_abbrev  0x000005a2      0x10c main.o
+ .debug_abbrev  0x000006ae       0x7a uart.o
 
-.debug_line     0x00000000      0x2c0
+.debug_line     0x00000000      0x33e
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x134 D:/Application/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_line    0x00000134      0x18c main.o
+ .debug_line    0x00000134      0x146 main.o
+ .debug_line    0x0000027a       0xc4 uart.o
 
-.debug_frame    0x00000000       0x90
+.debug_frame    0x00000000       0xa4
  *(.debug_frame)
- .debug_frame   0x00000000       0x90 main.o
+ .debug_frame   0x00000000       0x70 main.o
+ .debug_frame   0x00000070       0x34 uart.o
 
-.debug_str      0x00000000      0x3f1
+.debug_str      0x00000000      0x3fd
  *(.debug_str)
  .debug_str     0x00000000      0x208 D:/Application/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_str     0x00000208      0x1e9 main.o
-                                0x227 (size before relaxing)
+ .debug_str     0x00000208      0x1e1 main.o
+                                0x215 (size before relaxing)
+ .debug_str     0x000003e9       0x14 uart.o
+                                0x1d8 (size before relaxing)
 
 .debug_loc      0x00000000      0x1a2
  *(.debug_loc)
@@ -484,9 +497,10 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0x70
+.debug_ranges   0x00000000       0x78
  *(.debug_ranges)
- .debug_ranges  0x00000000       0x70 main.o
+ .debug_ranges  0x00000000       0x60 main.o
+ .debug_ranges  0x00000060       0x18 uart.o
 
 .debug_macro
  *(.debug_macro)
