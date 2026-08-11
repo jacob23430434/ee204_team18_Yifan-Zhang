@@ -1,0 +1,17 @@
+LTspice 26.0.1 for Windows
+Circuit: C:\Users\zhyb292\Documents\GitHub\ee204_team18_Yifan-Zhang\Lab3_SigCond\Lab2_Spice\Lab3_SignCond.net
+Start Time: Tue Aug 11 16:55:02 2026
+solver = Normal
+Maximum thread count: 24
+tnom = 27
+temp = 27
+method = trap
+Direct Newton iteration succeeded in finding operating point.
+Total elapsed time: 1.482 seconds.
+
+Files loaded:
+C:\Users\zhyb292\Documents\GitHub\ee204_team18_Yifan-Zhang\Lab3_SigCond\Lab2_Spice\Lab3_SignCond.net
+C:\Users\zhyb292\AppData\Local\LTspice\lib\cmp\standard.dio
+C:\Users\zhyb292\Documents\GitHub\ee204_team18_Yifan-Zhang\Lab3_SigCond\Lab2_Spice\LM324.lib
+C:\Users\zhyb292\AppData\Local\LTspice\lib\sub\LT1083.lib
+
