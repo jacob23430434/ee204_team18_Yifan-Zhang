@@ -19,7 +19,7 @@ R1a2 N005 Vsens 1k
 R1b2 N004 0 1k
 R2b2 Vout2 N004 10k
 R2a2 2V1 N005 10k
-V3 Vsens 0 SINE(0 0.5 500) AC .1 0
+V3 Vsens 0 SINE(0 0.1 500) AC .1 0
 Rload N001 Vis 25
 Lload Vac N001 4mH
 Rs Vis 0 0.1
