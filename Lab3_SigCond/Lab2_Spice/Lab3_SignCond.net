@@ -3,12 +3,12 @@
 X§U11 N003 N002 5V 0 Vout1 LM324 ;§pnba In+)In-)V+)V-)OUT
 V1 5V 0 5V
 Vsupply Vac 0 SINE(0 21.78 500)
-X§Reg 0 5VDis Vin LT1085-5 ;§pnba GND)OUT)IN
-RL 5VDis 0 100
+X§Reg 0 N008 Vin LT1085-5 ;§pnba GND)OUT)IN
+RL N008 0 100
 Rin Vin N007 33
 D1 Vac N007 1N4148
 Cin Vin 0 47µ Rser=0.001
-Cout 5VDis 0 10µ Rser=0.001
+Cout N008 0 10µ Rser=0.001
 R1a1 N003 Vsens 1k
 R1b1 N002 0 1k
 R2b1 Vout1 N002 10k
@@ -25,22 +25,22 @@ Lload Vac N001 4mH
 Rs Vis 0 0.5
 Ra Vac Vvs 100k
 Rb Vvs 0 4.7k
-X§U21 N008 N006 5V 0 Vio LM324 ;§pnba In+)In-)V+)V-)OUT
-R1a3 N008 Vis 1.2k
+X§U21 N009 N006 5V 0 Vio LM324 ;§pnba In+)In-)V+)V-)OUT
+R1a3 N009 Vis 1.2k
 R1b3 N006 0 1.2k
 R2b3 Vio N006 2.7k
-R2a3 2V1 N008 2.7k
-X§U1 N010 N009 5V 0 Vvo LM324 ;§pnba In+)In-)V+)V-)OUT
-R1a4 N010 Vvs 10k
-R1b4 N009 0 10k
-R2b4 Vvo N009 10k
-R2a4 2V1 N010 10k
+R2a3 2V1 N009 2.7k
+X§U1 N011 N010 5V 0 Vvo LM324 ;§pnba In+)In-)V+)V-)OUT
+R1a4 N011 Vvs 10k
+R1b4 N010 0 10k
+R2b4 Vvo N010 10k
+R2a4 2V1 N011 10k
 Rf Vfilter Vopamp 160
 Cf 0 Vfilter 100nF
 V4 Vopamp 0 SINE(2.1 1 500) AC 1 0
 .model D D
 .lib C:\Users\a2371\AppData\Local\LTspice\lib\cmp\standard.dio
-.ac dec 100 1 1Mega
+* .ac dec 100 1 1Mega
 .lib LM324.lib
 * Part 1A
 * Part 1B
@@ -60,7 +60,7 @@ V4 Vopamp 0 SINE(2.1 1 500) AC 1 0
 * Part 5
 * Part 4
 * Notes: \n- Change capacitor and resistor values as per your calculations\n- Change the simulation command to simulate the frequency response
-* .tran 0 0.5 0 0.01m
+.tran 0 0.5 0 0.01m
 .ic V(Vin)=8
 * Notes: \n- Change net label 5VDis to 5V to use the DC regulator - In this case \n  the 5V net attached to V1 needs to be set to 5VDis to disconnect it
 .lib LT1083.lib
