@@ -35,8 +35,8 @@ R1a4 N010 Vvs 10k
 R1b4 N009 0 10k
 R2b4 Vvo N009 10k
 R2a4 2V1 N010 10k
-Rf Vfilter Vopamp 1
-Cf 0 Vfilter 1nF
+Rf Vfilter Vopamp 1.6k
+Cf 0 Vfilter 10nF
 V4 Vopamp 0 SINE(2.1 1 500) AC 1 0
 .model D D
 .lib C:\Users\a2371\AppData\Local\LTspice\lib\cmp\standard.dio
