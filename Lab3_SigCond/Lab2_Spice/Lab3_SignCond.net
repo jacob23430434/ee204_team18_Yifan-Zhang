@@ -20,11 +20,11 @@ R1b2 N004 0 1k
 R2b2 Vout2 N004 10k
 R2a2 2V1 N005 10k
 V3 Vsens 0 SINE(0 0.1 500) AC .1 0
-Rload N001 Vis 94.23
+Rload N001 Vis 29.02
 Lload Vac N001 4mH
 Rs Vis 0 0.5
-Ra Vac Vvs 20.82k
-Rb Vvs 0 1k
+Ra Vac Vvs 100k
+Rb Vvs 0 4.7k
 X§U21 N008 N006 5V 0 Vio LM324 ;§pnba In+)In-)V+)V-)OUT
 R1a3 N008 Vis 1.2k
 R1b3 N006 0 1.2k
