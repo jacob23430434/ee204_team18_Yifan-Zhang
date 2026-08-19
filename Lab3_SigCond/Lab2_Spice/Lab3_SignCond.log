@@ -1,13 +1,13 @@
 LTspice 24.1.10 for Windows
 Circuit: D:\Onedrive\OneDrive - The University of Nottingham Ningbo China\文档\GitHub\ee204_team18_Yifan-Zhang\Lab3_SigCond\Lab2_Spice\Lab3_SignCond.net
-Start Time: Tue Aug 18 22:36:42 2026
+Start Time: Wed Aug 19 19:22:38 2026
 solver = Normal
 Maximum thread count: 14
 tnom = 27
 temp = 27
 method = trap
 Direct Newton iteration for .op point succeeded.
-Total elapsed time: 1.608 seconds.
+Total elapsed time: 1.248 seconds.
 
 Files loaded:
 D:\Onedrive\OneDrive - The University of Nottingham Ningbo China\文档\GitHub\ee204_team18_Yifan-Zhang\Lab3_SigCond\Lab2_Spice\Lab3_SignCond.net
