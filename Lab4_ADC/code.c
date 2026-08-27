@@ -17,29 +17,22 @@ int main(void){
 	//cycle so we can determine when it went from released to pressed
 	uart_init();
 	//Add your code here to initialize PINB7 and UART
-	DDRB &= ~(1<<DDB7); // set the PIN7 as input
-	DDRB &= ~(1<<DDB7);
-	PORTB |= (1<<PORTB7); // set the pull-up resistor for the push-button
+	DDRB = 0b11111111; 
+	DDRC = 0b00000000; 
+	DDRD = 0b00000000; //set DDRB as output DDRC DDRD as input
+	// Led is on PB 5
+	void LED_on(){
+	PINB |= (1<<PINB5); // set the PINB5 as high 
+	}
+	void LED_off(){
+	PINB &= ~(1<<PINB5);// set the PINB5 as low
+	}
+
 	while (1){
-		if((!(PINB & (1<<PINB7))) && !pb_was_pressed ){// if the bottom is pressed
-			pb_was_pressed = 1;
-		}
-		else if(PINB & (1<<PINB7) && pb_was_pressed){// released from press
-			pb_was_pressed = 0;//reset
-			uart_transmit_byte(pb_counter+'0');
-			uart_transmit_byte('\r');
-			uart_transmit_byte('\n');// new line feed
-			pb_counter++;// count ++
-		}
-		else{//held press
-			;//Add your code here
-		}
-		if(pb_counter == 10){
-			pb_counter = 0;
-			uart_transmit_byte(45);// print"-" when counter reach 9
-			uart_transmit_byte('\r');
-			uart_transmit_byte('\n');// new line feed
-		}
+	LED_on;
+	_delay_ms(500);//half duty cycle
+	LED_off;
+	_delay_ms(1000);//delay for 1 s 
 	}
 }
 
