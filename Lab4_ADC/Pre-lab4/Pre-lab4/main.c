@@ -20,10 +20,10 @@ int main(void){
 	//LED_off();
 	while (1){
 	if(PINB & (1<<PINB7)){
-		LED_on();// turn on the led if the pinb7 was pressed
+		LED_off();// turn on the led if the pinb7 was pressed
 	}
-	if(PINB & (1<<PINB7)){ // the pushbottom is pressed
-		LED_off();
+	else{ // the push botton is pressed
+		LED_on();
 	}
 	}
 	
