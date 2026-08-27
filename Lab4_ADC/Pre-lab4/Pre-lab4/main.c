@@ -13,16 +13,18 @@ int main(void){
 	//Counter variable that counts from 0-9 with push-button press
 	//Variable that remembers position of push-button during previous clock
 	//cycle so we can determine when it went from released to pressed
-	DDRB = 0b11111111;
+	DDRB = 0b01111111;
 	DDRC = 0b00000000;
 	DDRD = 0b00000000; //set DDRB as output DDRC DDRD as input
 	PORTB |= (1<<PORTB7);// Pull high the pb 7 input
 	//LED_off();
 	while (1){
-	LED_on();
-	_delay_ms(500);//half duty cycle
-	LED_off();
-	_delay_ms(1000);//delay for 1 s
+	if(PINB & (1<<PINB7)){
+		LED_on();// turn on the led if the pinb7 was pressed
+	}
+	if(PINB & (1<<PINB7)){ // the pushbottom is pressed
+		LED_off();
+	}
 	}
 	
 }
