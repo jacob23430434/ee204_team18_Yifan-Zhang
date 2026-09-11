@@ -16,6 +16,17 @@ void adc_init() {
  
  
  
-uint16_t adc_read(uint8_t chan) {
-	...  //Code written in Part 3 goes here
+uint16_t adc_read(uint8_t channel) {
+	ADMUX &= 0xF0; //clear channel selection
+	ADMUX |= channel; //Set the channel to convert
+	ADCSRA |= (1 << ADSC); // Starting an ADC conversion
+	while ((ADCSRA & (1 << ADIF)) == 0){// Check if ADIF is equal to 0
+		;// if ADIF is not 1, wait until it becomes 1
+	} 
+	uint16_t adc_value = (ADCL << 0)|(ADCH << 8);
+	return(adc_value); // Get the full 10 bit ADC data
 }
+
+	
+
+	

@@ -4,6 +4,7 @@
 
 int main(void){
 	adc_init();
+	adc_read(0001);
 	while(1){
 		
 		};
