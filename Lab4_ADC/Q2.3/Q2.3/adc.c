@@ -26,7 +26,6 @@ uint16_t adc_read(uint8_t channel) {
 uint16_t adc_convert_mv(uint8_t channel){
 	uint16_t dc_voltage_mv;
 	dc_voltage_mv = ((uint32_t)adc_read(channel) * 5000)/1024;  //Converting result to mV
-	printf("Voltage: %d mV\n\r",dc_voltage_mv);
 	return(dc_voltage_mv);
 }
 

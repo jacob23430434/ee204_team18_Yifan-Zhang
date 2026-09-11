@@ -1,4 +1,4 @@
-main.d main.o: .././main.c \
+uart.d uart.o: .././uart.c \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
@@ -10,10 +10,7 @@ main.d main.o: .././main.c \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\version.h \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h \
- .././adc.h .././common.h .././uart.h \
- d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay.h \
- d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
- d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h
+ .././uart.h
 
 d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -37,14 +34,4 @@ d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h:
 
 d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h:
 
-.././adc.h:
-
-.././common.h:
-
 .././uart.h:
-
-d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay.h:
-
-d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h:
-
-d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h:
