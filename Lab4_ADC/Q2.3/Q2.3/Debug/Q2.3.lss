@@ -3,29 +3,29 @@ Q2.3.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  0000035a  2**0
+  0 .data         00000000  00800100  00800100  00000352  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000306  00000000  00000000  00000054  2**1
+  1 .text         000002fe  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .comment      00000030  00000000  00000000  0000035a  2**0
+  2 .comment      00000030  00000000  00000000  00000352  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000038c  2**2
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000384  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000080  00000000  00000000  000003cc  2**0
+  4 .debug_aranges 00000080  00000000  00000000  000003c4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000b1f  00000000  00000000  0000044c  2**0
+  5 .debug_info   00000b1f  00000000  00000000  00000444  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 0000086e  00000000  00000000  00000f6b  2**0
+  6 .debug_abbrev 0000086e  00000000  00000000  00000f63  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000004b5  00000000  00000000  000017d9  2**0
+  7 .debug_line   000004b5  00000000  00000000  000017d1  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  000000e8  00000000  00000000  00001c90  2**2
+  8 .debug_frame  000000e8  00000000  00000000  00001c88  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000048b  00000000  00000000  00001d78  2**0
+  9 .debug_str    0000048b  00000000  00000000  00001d70  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000284  00000000  00000000  00002203  2**0
+ 10 .debug_loc    00000276  00000000  00000000  000021fb  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000050  00000000  00000000  00002487  2**0
+ 11 .debug_ranges 00000050  00000000  00000000  00002471  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -66,7 +66,7 @@ Disassembly of section .text:
   70:	de bf       	out	0x3e, r29	; 62
   72:	cd bf       	out	0x3d, r28	; 61
   74:	0e 94 fd 00 	call	0x1fa	; 0x1fa <main>
-  78:	0c 94 81 01 	jmp	0x302	; 0x302 <_exit>
+  78:	0c 94 7d 01 	jmp	0x2fa	; 0x2fa <_exit>
 
 0000007c <__bad_interrupt>:
   7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -137,7 +137,7 @@ uint16_t adc_convert_mv(uint8_t channel){
   ce:	9c 01       	movw	r18, r24
   d0:	a8 e8       	ldi	r26, 0x88	; 136
   d2:	b3 e1       	ldi	r27, 0x13	; 19
-  d4:	0e 94 72 01 	call	0x2e4	; 0x2e4 <__umulhisi3>
+  d4:	0e 94 6e 01 	call	0x2dc	; 0x2dc <__umulhisi3>
   d8:	dc 01       	movw	r26, r24
   da:	cb 01       	movw	r24, r22
   dc:	07 2e       	mov	r0, r23
@@ -178,7 +178,7 @@ void transimit_data(uint16_t buffer){
  10c:	9e 01       	movw	r18, r28
  10e:	a5 ec       	ldi	r26, 0xC5	; 197
  110:	b0 e2       	ldi	r27, 0x20	; 32
- 112:	0e 94 72 01 	call	0x2e4	; 0x2e4 <__umulhisi3>
+ 112:	0e 94 6e 01 	call	0x2dc	; 0x2dc <__umulhisi3>
  116:	fc 01       	movw	r30, r24
  118:	f2 95       	swap	r31
  11a:	e2 95       	swap	r30
@@ -205,7 +205,7 @@ void transimit_data(uint16_t buffer){
  142:	27 95       	ror	r18
  144:	ab e7       	ldi	r26, 0x7B	; 123
  146:	b4 e1       	ldi	r27, 0x14	; 20
- 148:	0e 94 72 01 	call	0x2e4	; 0x2e4 <__umulhisi3>
+ 148:	0e 94 6e 01 	call	0x2dc	; 0x2dc <__umulhisi3>
  14c:	7c 01       	movw	r14, r24
  14e:	f6 94       	lsr	r15
  150:	e7 94       	ror	r14
@@ -215,7 +215,7 @@ void transimit_data(uint16_t buffer){
  156:	27 95       	ror	r18
  158:	36 95       	lsr	r19
  15a:	27 95       	ror	r18
- 15c:	0e 94 72 01 	call	0x2e4	; 0x2e4 <__umulhisi3>
+ 15c:	0e 94 6e 01 	call	0x2dc	; 0x2dc <__umulhisi3>
  160:	9c 01       	movw	r18, r24
  162:	36 95       	lsr	r19
  164:	27 95       	ror	r18
@@ -230,7 +230,7 @@ void transimit_data(uint16_t buffer){
  176:	39 0b       	sbc	r19, r25
  178:	ad ec       	ldi	r26, 0xCD	; 205
  17a:	bc ec       	ldi	r27, 0xCC	; 204
- 17c:	0e 94 72 01 	call	0x2e4	; 0x2e4 <__umulhisi3>
+ 17c:	0e 94 6e 01 	call	0x2dc	; 0x2dc <__umulhisi3>
  180:	8c 01       	movw	r16, r24
  182:	16 95       	lsr	r17
  184:	07 95       	ror	r16
@@ -240,7 +240,7 @@ void transimit_data(uint16_t buffer){
  18c:	07 95       	ror	r16
 	int ones = buffer % 10;
  18e:	9a 01       	movw	r18, r20
- 190:	0e 94 72 01 	call	0x2e4	; 0x2e4 <__umulhisi3>
+ 190:	0e 94 6e 01 	call	0x2dc	; 0x2dc <__umulhisi3>
  194:	ec 01       	movw	r28, r24
  196:	d6 95       	lsr	r29
  198:	c7 95       	ror	r28
@@ -266,25 +266,25 @@ void transimit_data(uint16_t buffer){
 	uart_transmit_byte(thousand + '0');//transmit the thousand digit
  1c0:	80 e3       	ldi	r24, 0x30	; 48
  1c2:	8e 0f       	add	r24, r30
- 1c4:	0e 94 6b 01 	call	0x2d6	; 0x2d6 <uart_transmit_byte>
+ 1c4:	0e 94 67 01 	call	0x2ce	; 0x2ce <uart_transmit_byte>
 	uart_transmit_byte(hundred + '0');//transmit the hundreds digit
  1c8:	80 e3       	ldi	r24, 0x30	; 48
  1ca:	8e 0d       	add	r24, r14
- 1cc:	0e 94 6b 01 	call	0x2d6	; 0x2d6 <uart_transmit_byte>
+ 1cc:	0e 94 67 01 	call	0x2ce	; 0x2ce <uart_transmit_byte>
 	uart_transmit_byte(tens + '0');//transmit the tens digit
  1d0:	80 e3       	ldi	r24, 0x30	; 48
  1d2:	80 0f       	add	r24, r16
- 1d4:	0e 94 6b 01 	call	0x2d6	; 0x2d6 <uart_transmit_byte>
+ 1d4:	0e 94 67 01 	call	0x2ce	; 0x2ce <uart_transmit_byte>
 	uart_transmit_byte(ones + '0');//transmit the ones digit
  1d8:	8c 2f       	mov	r24, r28
  1da:	80 5d       	subi	r24, 0xD0	; 208
- 1dc:	0e 94 6b 01 	call	0x2d6	; 0x2d6 <uart_transmit_byte>
+ 1dc:	0e 94 67 01 	call	0x2ce	; 0x2ce <uart_transmit_byte>
 	uart_transmit_byte(44);//transmit the ASCII comma
  1e0:	8c e2       	ldi	r24, 0x2C	; 44
- 1e2:	0e 94 6b 01 	call	0x2d6	; 0x2d6 <uart_transmit_byte>
+ 1e2:	0e 94 67 01 	call	0x2ce	; 0x2ce <uart_transmit_byte>
 	uart_transmit_byte(32);//transmit the ASCII space
  1e6:	80 e2       	ldi	r24, 0x20	; 32
- 1e8:	0e 94 6b 01 	call	0x2d6	; 0x2d6 <uart_transmit_byte>
+ 1e8:	0e 94 67 01 	call	0x2ce	; 0x2ce <uart_transmit_byte>
 }
  1ec:	df 91       	pop	r29
  1ee:	cf 91       	pop	r28
@@ -317,7 +317,7 @@ int main(void){
 	adc_init();
  214:	0e 94 40 00 	call	0x80	; 0x80 <adc_init>
 	uart_init();//initialize the registers
- 218:	0e 94 5c 01 	call	0x2b8	; 0x2b8 <uart_init>
+ 218:	0e 94 58 01 	call	0x2b0	; 0x2b0 <uart_init>
 	uint16_t buffer;
 	uint16_t adc0[40];
 	uint16_t adc1[40]; 
@@ -325,7 +325,7 @@ int main(void){
 		for(int i = 0;i<40;i++){// get 40 samples
  21c:	00 e0       	ldi	r16, 0x00	; 0
  21e:	10 e0       	ldi	r17, 0x00	; 0
- 220:	21 c0       	rjmp	.+66     	; 0x264 <main+0x6a>
+ 220:	1d c0       	rjmp	.+58     	; 0x25c <main+0x62>
 			buffer = adc_convert_mv(0);// Get the ADC value from ADC0
  222:	80 e0       	ldi	r24, 0x00	; 0
  224:	90 e0       	ldi	r25, 0x00	; 0
@@ -336,164 +336,160 @@ int main(void){
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 22a:	89 ef       	ldi	r24, 0xF9	; 249
- 22c:	90 e0       	ldi	r25, 0x00	; 0
- 22e:	01 97       	sbiw	r24, 0x01	; 1
- 230:	f1 f7       	brne	.-4      	; 0x22e <main+0x34>
- 232:	00 c0       	rjmp	.+0      	; 0x234 <main+0x3a>
- 234:	00 00       	nop
+ 22a:	22 e4       	ldi	r18, 0x42	; 66
+ 22c:	2a 95       	dec	r18
+ 22e:	f1 f7       	brne	.-4      	; 0x22c <main+0x32>
+ 230:	00 c0       	rjmp	.+0      	; 0x232 <main+0x38>
 			adc0[i] = buffer;// store the ADC 0 value
-			_delay_ms(0.5);
+			_delay_ms(0.1);
 			buffer = adc_convert_mv(1);// Get the ADC value from ADC1
- 236:	81 e0       	ldi	r24, 0x01	; 1
- 238:	90 e0       	ldi	r25, 0x00	; 0
- 23a:	0e 94 65 00 	call	0xca	; 0xca <adc_convert_mv>
+ 232:	81 e0       	ldi	r24, 0x01	; 1
+ 234:	90 e0       	ldi	r25, 0x00	; 0
+ 236:	0e 94 65 00 	call	0xca	; 0xca <adc_convert_mv>
 			adc1[i] = buffer;
- 23e:	f8 01       	movw	r30, r16
- 240:	ee 0f       	add	r30, r30
- 242:	ff 1f       	adc	r31, r31
- 244:	21 e0       	ldi	r18, 0x01	; 1
- 246:	30 e0       	ldi	r19, 0x00	; 0
- 248:	2c 0f       	add	r18, r28
- 24a:	3d 1f       	adc	r19, r29
- 24c:	e2 0f       	add	r30, r18
- 24e:	f3 1f       	adc	r31, r19
- 250:	91 83       	std	Z+1, r25	; 0x01
- 252:	80 83       	st	Z, r24
- 254:	89 ef       	ldi	r24, 0xF9	; 249
- 256:	90 e0       	ldi	r25, 0x00	; 0
- 258:	01 97       	sbiw	r24, 0x01	; 1
- 25a:	f1 f7       	brne	.-4      	; 0x258 <main+0x5e>
- 25c:	00 c0       	rjmp	.+0      	; 0x25e <main+0x64>
- 25e:	00 00       	nop
+ 23a:	f8 01       	movw	r30, r16
+ 23c:	ee 0f       	add	r30, r30
+ 23e:	ff 1f       	adc	r31, r31
+ 240:	21 e0       	ldi	r18, 0x01	; 1
+ 242:	30 e0       	ldi	r19, 0x00	; 0
+ 244:	2c 0f       	add	r18, r28
+ 246:	3d 1f       	adc	r19, r29
+ 248:	e2 0f       	add	r30, r18
+ 24a:	f3 1f       	adc	r31, r19
+ 24c:	91 83       	std	Z+1, r25	; 0x01
+ 24e:	80 83       	st	Z, r24
+ 250:	32 e4       	ldi	r19, 0x42	; 66
+ 252:	3a 95       	dec	r19
+ 254:	f1 f7       	brne	.-4      	; 0x252 <main+0x58>
+ 256:	00 c0       	rjmp	.+0      	; 0x258 <main+0x5e>
 	uart_init();//initialize the registers
 	uint16_t buffer;
 	uint16_t adc0[40];
 	uint16_t adc1[40]; 
 	while(1){
 		for(int i = 0;i<40;i++){// get 40 samples
- 260:	0f 5f       	subi	r16, 0xFF	; 255
- 262:	1f 4f       	sbci	r17, 0xFF	; 255
- 264:	08 32       	cpi	r16, 0x28	; 40
- 266:	11 05       	cpc	r17, r1
- 268:	e4 f2       	brlt	.-72     	; 0x222 <main+0x28>
-			_delay_ms(0.5);
+ 258:	0f 5f       	subi	r16, 0xFF	; 255
+ 25a:	1f 4f       	sbci	r17, 0xFF	; 255
+ 25c:	08 32       	cpi	r16, 0x28	; 40
+ 25e:	11 05       	cpc	r17, r1
+ 260:	04 f3       	brlt	.-64     	; 0x222 <main+0x28>
+			_delay_ms(0.1);
 			buffer = adc_convert_mv(1);// Get the ADC value from ADC1
 			adc1[i] = buffer;
-			_delay_ms(0.5);
+			_delay_ms(0.1);
 		}
 		transimit_data(1999);
- 26a:	8f ec       	ldi	r24, 0xCF	; 207
- 26c:	97 e0       	ldi	r25, 0x07	; 7
- 26e:	0e 94 78 00 	call	0xf0	; 0xf0 <transimit_data>
+ 262:	8f ec       	ldi	r24, 0xCF	; 207
+ 264:	97 e0       	ldi	r25, 0x07	; 7
+ 266:	0e 94 78 00 	call	0xf0	; 0xf0 <transimit_data>
 		for(int i = 0;i<40;i++){
- 272:	00 e0       	ldi	r16, 0x00	; 0
- 274:	10 e0       	ldi	r17, 0x00	; 0
- 276:	0f c0       	rjmp	.+30     	; 0x296 <main+0x9c>
+ 26a:	00 e0       	ldi	r16, 0x00	; 0
+ 26c:	10 e0       	ldi	r17, 0x00	; 0
+ 26e:	0f c0       	rjmp	.+30     	; 0x28e <main+0x94>
 			//transimit_data(adc0[i]);
 			transimit_data(adc1[i]);
- 278:	f8 01       	movw	r30, r16
- 27a:	ee 0f       	add	r30, r30
- 27c:	ff 1f       	adc	r31, r31
- 27e:	21 e0       	ldi	r18, 0x01	; 1
- 280:	30 e0       	ldi	r19, 0x00	; 0
- 282:	2c 0f       	add	r18, r28
- 284:	3d 1f       	adc	r19, r29
- 286:	e2 0f       	add	r30, r18
- 288:	f3 1f       	adc	r31, r19
- 28a:	80 81       	ld	r24, Z
- 28c:	91 81       	ldd	r25, Z+1	; 0x01
- 28e:	0e 94 78 00 	call	0xf0	; 0xf0 <transimit_data>
+ 270:	f8 01       	movw	r30, r16
+ 272:	ee 0f       	add	r30, r30
+ 274:	ff 1f       	adc	r31, r31
+ 276:	81 e0       	ldi	r24, 0x01	; 1
+ 278:	90 e0       	ldi	r25, 0x00	; 0
+ 27a:	8c 0f       	add	r24, r28
+ 27c:	9d 1f       	adc	r25, r29
+ 27e:	e8 0f       	add	r30, r24
+ 280:	f9 1f       	adc	r31, r25
+ 282:	80 81       	ld	r24, Z
+ 284:	91 81       	ldd	r25, Z+1	; 0x01
+ 286:	0e 94 78 00 	call	0xf0	; 0xf0 <transimit_data>
 			buffer = adc_convert_mv(1);// Get the ADC value from ADC1
 			adc1[i] = buffer;
-			_delay_ms(0.5);
+			_delay_ms(0.1);
 		}
 		transimit_data(1999);
 		for(int i = 0;i<40;i++){
- 292:	0f 5f       	subi	r16, 0xFF	; 255
- 294:	1f 4f       	sbci	r17, 0xFF	; 255
- 296:	08 32       	cpi	r16, 0x28	; 40
- 298:	11 05       	cpc	r17, r1
- 29a:	74 f3       	brlt	.-36     	; 0x278 <main+0x7e>
+ 28a:	0f 5f       	subi	r16, 0xFF	; 255
+ 28c:	1f 4f       	sbci	r17, 0xFF	; 255
+ 28e:	08 32       	cpi	r16, 0x28	; 40
+ 290:	11 05       	cpc	r17, r1
+ 292:	74 f3       	brlt	.-36     	; 0x270 <main+0x76>
 			//transimit_data(adc0[i]);
 			transimit_data(adc1[i]);
 		}
 		break;//end while
 		}
 }
- 29c:	80 e0       	ldi	r24, 0x00	; 0
- 29e:	90 e0       	ldi	r25, 0x00	; 0
- 2a0:	c0 5b       	subi	r28, 0xB0	; 176
- 2a2:	df 4f       	sbci	r29, 0xFF	; 255
- 2a4:	0f b6       	in	r0, 0x3f	; 63
- 2a6:	f8 94       	cli
- 2a8:	de bf       	out	0x3e, r29	; 62
- 2aa:	0f be       	out	0x3f, r0	; 63
- 2ac:	cd bf       	out	0x3d, r28	; 61
- 2ae:	df 91       	pop	r29
- 2b0:	cf 91       	pop	r28
- 2b2:	1f 91       	pop	r17
- 2b4:	0f 91       	pop	r16
- 2b6:	08 95       	ret
+ 294:	80 e0       	ldi	r24, 0x00	; 0
+ 296:	90 e0       	ldi	r25, 0x00	; 0
+ 298:	c0 5b       	subi	r28, 0xB0	; 176
+ 29a:	df 4f       	sbci	r29, 0xFF	; 255
+ 29c:	0f b6       	in	r0, 0x3f	; 63
+ 29e:	f8 94       	cli
+ 2a0:	de bf       	out	0x3e, r29	; 62
+ 2a2:	0f be       	out	0x3f, r0	; 63
+ 2a4:	cd bf       	out	0x3d, r28	; 61
+ 2a6:	df 91       	pop	r29
+ 2a8:	cf 91       	pop	r28
+ 2aa:	1f 91       	pop	r17
+ 2ac:	0f 91       	pop	r16
+ 2ae:	08 95       	ret
 
-000002b8 <uart_init>:
+000002b0 <uart_init>:
 
 
 // This function configures the UART to 9600 baud, 8N1 with no parity
 void uart_init(void)
 {
 	UCSR0A = 0b00000000;    // None of the settings here are used
- 2b8:	10 92 c0 00 	sts	0x00C0, r1	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 2b0:	10 92 c0 00 	sts	0x00C0, r1	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
 	UCSR0B = 0b00001000;    // Set TXEN0 bit to 1 (enable transmit) and UCSZ02 bit to 0 (8 data bits)
- 2bc:	88 e0       	ldi	r24, 0x08	; 8
- 2be:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7f80c1>
+ 2b4:	88 e0       	ldi	r24, 0x08	; 8
+ 2b6:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7f80c1>
 	// To improve readability we should aim to write this in the form "UCSR0B = (1<<TXEN0);"
 	UCSR0C = 0b00000110;    // UMSEL0[1..0]=00 (UART mode), UPM0[1..0]=00 (no parity),
- 2c2:	86 e0       	ldi	r24, 0x06	; 6
- 2c4:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7f80c2>
+ 2ba:	86 e0       	ldi	r24, 0x06	; 6
+ 2bc:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7f80c2>
 	// USBS0=0 (1 stop-bit), UCSZ0[1..0]=11 (8 data bits)
 	UBRR0 = 12;// Set UBRR0 value to 12
- 2c8:	8c e0       	ldi	r24, 0x0C	; 12
- 2ca:	90 e0       	ldi	r25, 0x00	; 0
- 2cc:	90 93 c5 00 	sts	0x00C5, r25	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7f80c5>
- 2d0:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7f80c4>
- 2d4:	08 95       	ret
+ 2c0:	8c e0       	ldi	r24, 0x0C	; 12
+ 2c2:	90 e0       	ldi	r25, 0x00	; 0
+ 2c4:	90 93 c5 00 	sts	0x00C5, r25	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7f80c5>
+ 2c8:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7f80c4>
+ 2cc:	08 95       	ret
 
-000002d6 <uart_transmit_byte>:
+000002ce <uart_transmit_byte>:
 }
 
 // This function transmits a single byte via the UART
 void uart_transmit_byte(char byte){
 	while ((UCSR0A & 0b00100000) == 0){//Data Register Empty flag when set indicates if UDR0 is ready to be loaded with new data
- 2d6:	90 91 c0 00 	lds	r25, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
- 2da:	95 ff       	sbrs	r25, 5
- 2dc:	fc cf       	rjmp	.-8      	; 0x2d6 <uart_transmit_byte>
+ 2ce:	90 91 c0 00 	lds	r25, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 2d2:	95 ff       	sbrs	r25, 5
+ 2d4:	fc cf       	rjmp	.-8      	; 0x2ce <uart_transmit_byte>
 		;//wait until the bit 5 in UCSR0A equal to 1
 	}
 	// Put the byte to be sent into the UDR0 register
 	UDR0 = byte;
- 2de:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
- 2e2:	08 95       	ret
+ 2d6:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+ 2da:	08 95       	ret
 
-000002e4 <__umulhisi3>:
- 2e4:	a2 9f       	mul	r26, r18
- 2e6:	b0 01       	movw	r22, r0
- 2e8:	b3 9f       	mul	r27, r19
- 2ea:	c0 01       	movw	r24, r0
- 2ec:	a3 9f       	mul	r26, r19
- 2ee:	70 0d       	add	r23, r0
- 2f0:	81 1d       	adc	r24, r1
- 2f2:	11 24       	eor	r1, r1
- 2f4:	91 1d       	adc	r25, r1
- 2f6:	b2 9f       	mul	r27, r18
- 2f8:	70 0d       	add	r23, r0
- 2fa:	81 1d       	adc	r24, r1
- 2fc:	11 24       	eor	r1, r1
- 2fe:	91 1d       	adc	r25, r1
- 300:	08 95       	ret
+000002dc <__umulhisi3>:
+ 2dc:	a2 9f       	mul	r26, r18
+ 2de:	b0 01       	movw	r22, r0
+ 2e0:	b3 9f       	mul	r27, r19
+ 2e2:	c0 01       	movw	r24, r0
+ 2e4:	a3 9f       	mul	r26, r19
+ 2e6:	70 0d       	add	r23, r0
+ 2e8:	81 1d       	adc	r24, r1
+ 2ea:	11 24       	eor	r1, r1
+ 2ec:	91 1d       	adc	r25, r1
+ 2ee:	b2 9f       	mul	r27, r18
+ 2f0:	70 0d       	add	r23, r0
+ 2f2:	81 1d       	adc	r24, r1
+ 2f4:	11 24       	eor	r1, r1
+ 2f6:	91 1d       	adc	r25, r1
+ 2f8:	08 95       	ret
 
-00000302 <_exit>:
- 302:	f8 94       	cli
+000002fa <_exit>:
+ 2fa:	f8 94       	cli
 
-00000304 <__stop_program>:
- 304:	ff cf       	rjmp	.-2      	; 0x304 <__stop_program>
+000002fc <__stop_program>:
+ 2fc:	ff cf       	rjmp	.-2      	; 0x2fc <__stop_program>
