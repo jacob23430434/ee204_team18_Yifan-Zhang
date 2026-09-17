@@ -1,36 +1,34 @@
-main.d main.o: .././main.c \
- d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay.h \
- d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
+timer0.d timer0.o: .././timer0.c .././timer0.h \
+ d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdint.h \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdint.h \
- d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
- d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h \
+ .././led.h \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
+ d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
  D:\Application\7.0\Packs\atmel\ATmega_DFP\1.7.374\include/avr/iom328p.h \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\portpins.h \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\common.h \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\version.h \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h \
- .././led.h .././timer0.h \
- d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h
+ d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h
 
-d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay.h:
+.././timer0.h:
 
-d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h:
+d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h:
 
 d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdint.h:
 
 d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdint.h:
 
-d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h:
-
-d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h:
+.././led.h:
 
 d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 
 d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h:
+
+d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h:
 
 D:\Application\7.0\Packs\atmel\ATmega_DFP\1.7.374\include/avr/iom328p.h:
 
@@ -44,8 +42,4 @@ d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h:
 
 d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h:
 
-.././led.h:
-
-.././timer0.h:
-
-d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h:
+d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h:

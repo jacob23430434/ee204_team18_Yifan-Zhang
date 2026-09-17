@@ -1,26 +1,25 @@
 #include <util/delay.h>
 #include <avr/io.h>
-
+#include "led.h"
+#include "timer0.h"
+// Pre lab part
+int status = 0;
 void port_init(void){
 	DDRB = 0xFF;
 	DDRC = 0x00;
 	DDRD = 0x00; // Set PortB to be output and Port C and D be inputs
 }
-void LED_on(void){
-	PORTB |= (1<<5);// Set PORTB 5 to be high
-}
-void LED_off(void){
-	PORTB &= ~(1<<5);// Set PORTB 5 to Low
-}
+//
+
 int main(void)
 {
-	port_init();// initialise the ports
+	port_init();
+	timer0_init();
     while (1) 
     {
-		LED_on();
-		_delay_ms(375);
-		LED_off();
-		_delay_ms(125);// 2Hz frequency with 75% duty cycle 
-    }
+	if(timer0_check_clear_compare() == 1){
+		status = led_toggle(status);	
+	}
+	}
 }
 
