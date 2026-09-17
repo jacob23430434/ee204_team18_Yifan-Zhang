@@ -11,7 +11,9 @@ void timer0_init(){
 	TCCR0B = 0b00000100;
 	OCR0A = 0b01001101;
 }
-
+ISR(TIMER0_COMPA_vect){
+	led_toggle();
+}
 uint8_t timer0_check_clear_compare(){
 	if( TIFR0 & (1 << 1 )){ //TODO: check compare flag
 		//TODO: clear compare flag.

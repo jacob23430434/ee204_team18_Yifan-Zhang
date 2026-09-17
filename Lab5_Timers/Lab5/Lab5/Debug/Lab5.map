@@ -12,9 +12,12 @@ Discarded input sections
  .text          0x00000000        0x0 led.o
  .data          0x00000000        0x0 led.o
  .bss           0x00000000        0x0 led.o
+ .text.LED_on   0x00000000        0x8 led.o
+ .text.LED_off  0x00000000        0x8 led.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
+ .bss.status    0x00000000        0x2 main.o
  .text          0x00000000        0x0 timer0.o
  .data          0x00000000        0x0 timer0.o
  .bss           0x00000000        0x0 timer0.o
@@ -179,7 +182,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x10c
+.text           0x00000000      0x126
  *(.vectors)
  .vectors       0x00000000       0x68 D:/Application/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -257,36 +260,34 @@ END GROUP
                 0x0000008c                __vector_21
                 0x0000008c                __vector_15
                 0x0000008c                __vector_8
-                0x0000008c                __vector_14
                 0x0000008c                __vector_10
                 0x0000008c                __vector_16
                 0x0000008c                __vector_18
                 0x0000008c                __vector_20
                 0x00000090                . = ALIGN (0x2)
  *(.text.*)
- .text.LED_on   0x00000090        0x8 led.o
-                0x00000090                LED_on
- .text.LED_off  0x00000098        0x8 led.o
-                0x00000098                LED_off
  .text.led_toggle
-                0x000000a0       0x18 led.o
-                0x000000a0                led_toggle
+                0x00000090        0xa led.o
+                0x00000090                led_toggle
  .text.port_init
-                0x000000b8        0xa main.o
-                0x000000b8                port_init
- .text.main     0x000000c2       0x26 main.o
-                0x000000c2                main
+                0x0000009a        0xa main.o
+                0x0000009a                port_init
+ .text.main     0x000000a4       0x16 main.o
+                0x000000a4                main
  .text.timer0_init
-                0x000000e8        0xe timer0.o
-                0x000000e8                timer0_init
+                0x000000ba        0xe timer0.o
+                0x000000ba                timer0_init
+ .text.__vector_14
+                0x000000c8       0x48 timer0.o
+                0x000000c8                __vector_14
  .text.timer0_check_clear_compare
-                0x000000f6       0x12 timer0.o
-                0x000000f6                timer0_check_clear_compare
-                0x00000108                . = ALIGN (0x2)
+                0x00000110       0x12 timer0.o
+                0x00000110                timer0_check_clear_compare
+                0x00000122                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000108        0x0 d:/application/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00000108                _exit
-                0x00000108                exit
+ .fini9         0x00000122        0x0 d:/application/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00000122                _exit
+                0x00000122                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -305,11 +306,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000108        0x4 d:/application/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000122        0x4 d:/application/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000010c                _etext = .
+                0x00000126                _etext = .
 
-.data           0x00800100        0x0 load address 0x0000010c
+.data           0x00800100        0x0 load address 0x00000126
                 [!provide]                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -321,22 +322,20 @@ END GROUP
                 0x00800100                _edata = .
                 [!provide]                PROVIDE (__data_end, .)
 
-.bss            0x00800100        0x2
+.bss            0x00800100        0x0
                 0x00800100                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.status    0x00800100        0x2 main.o
-                0x00800100                status
  *(COMMON)
-                0x00800102                PROVIDE (__bss_end, .)
-                0x0000010c                __data_load_start = LOADADDR (.data)
-                0x0000010c                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00800100                PROVIDE (__bss_end, .)
+                0x00000126                __data_load_start = LOADADDR (.data)
+                0x00000126                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800102        0x0
+.noinit         0x00800100        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x00800102                _end = .
+                0x00800100                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -403,58 +402,58 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0x80
+.debug_aranges  0x00000000       0x88
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x30 led.o
  .debug_aranges
                 0x00000030       0x28 main.o
  .debug_aranges
-                0x00000058       0x28 timer0.o
+                0x00000058       0x30 timer0.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0x864
+.debug_info     0x00000000      0x86e
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 D:/Application/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_info    0x000005f4       0xd5 led.o
- .debug_info    0x000006c9      0x100 main.o
- .debug_info    0x000007c9       0x9b timer0.o
+ .debug_info    0x000005f4       0xae led.o
+ .debug_info    0x000006a2      0x100 main.o
+ .debug_info    0x000007a2       0xcc timer0.o
 
-.debug_abbrev   0x00000000      0x72c
+.debug_abbrev   0x00000000      0x745
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 D:/Application/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_abbrev  0x000005a2       0x85 led.o
- .debug_abbrev  0x00000627       0x9e main.o
- .debug_abbrev  0x000006c5       0x67 timer0.o
+ .debug_abbrev  0x000005a2       0x67 led.o
+ .debug_abbrev  0x00000609       0x9e main.o
+ .debug_abbrev  0x000006a7       0x9e timer0.o
 
-.debug_line     0x00000000      0x398
+.debug_line     0x00000000      0x39f
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x134 D:/Application/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_line    0x00000134       0xd1 led.o
- .debug_line    0x00000205       0xd3 main.o
- .debug_line    0x000002d8       0xc0 timer0.o
+ .debug_line    0x00000134       0xb3 led.o
+ .debug_line    0x000001e7       0xd3 main.o
+ .debug_line    0x000002ba       0xe5 timer0.o
 
-.debug_frame    0x00000000       0xac
+.debug_frame    0x00000000      0x104
  *(.debug_frame)
  .debug_frame   0x00000000       0x44 led.o
  .debug_frame   0x00000044       0x34 main.o
- .debug_frame   0x00000078       0x34 timer0.o
+ .debug_frame   0x00000078       0x8c timer0.o
 
-.debug_str      0x00000000      0x3ec
+.debug_str      0x00000000      0x3f8
  *(.debug_str)
  .debug_str     0x00000000      0x208 D:/Application/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_str     0x00000208      0x194 led.o
-                                0x1c8 (size before relaxing)
- .debug_str     0x0000039c       0x42 main.o
+ .debug_str     0x00000208      0x18d led.o
+                                0x1c1 (size before relaxing)
+ .debug_str     0x00000395       0x49 main.o
                                 0x1f0 (size before relaxing)
- .debug_str     0x000003de        0xe timer0.o
-                                0x1d1 (size before relaxing)
+ .debug_str     0x000003de       0x1a timer0.o
+                                0x1e8 (size before relaxing)
 
-.debug_loc      0x00000000       0x6c
+.debug_loc      0x00000000       0xcb
  *(.debug_loc)
- .debug_loc     0x00000000       0x6c led.o
+ .debug_loc     0x00000000       0xcb timer0.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -474,11 +473,11 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0x50
+.debug_ranges   0x00000000       0x58
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x20 led.o
  .debug_ranges  0x00000020       0x18 main.o
- .debug_ranges  0x00000038       0x18 timer0.o
+ .debug_ranges  0x00000038       0x20 timer0.o
 
 .debug_macro
  *(.debug_macro)

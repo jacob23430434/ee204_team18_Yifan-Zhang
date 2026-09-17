@@ -18,7 +18,7 @@ int main(void)
     while (1) 
     {
 	if(timer0_check_clear_compare() == 1){
-		status = led_toggle(status);	
+		 led_toggle();	
 	}
 	}
 }

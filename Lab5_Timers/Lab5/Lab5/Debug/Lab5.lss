@@ -3,31 +3,29 @@ Lab5.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  00000180  2**0
+  0 .data         00000000  00800100  00800100  0000017a  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000010c  00000000  00000000  00000074  2**1
+  1 .text         00000126  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000002  00800100  00800100  00000180  2**0
-                  ALLOC
-  3 .comment      00000030  00000000  00000000  00000180  2**0
+  2 .comment      00000030  00000000  00000000  0000017a  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000001b0  2**2
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000001ac  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000080  00000000  00000000  000001f0  2**0
+  4 .debug_aranges 00000088  00000000  00000000  000001ec  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000864  00000000  00000000  00000270  2**0
+  5 .debug_info   0000086e  00000000  00000000  00000274  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 0000072c  00000000  00000000  00000ad4  2**0
+  6 .debug_abbrev 00000745  00000000  00000000  00000ae2  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000398  00000000  00000000  00001200  2**0
+  7 .debug_line   0000039f  00000000  00000000  00001227  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000000ac  00000000  00000000  00001598  2**2
+  8 .debug_frame  00000104  00000000  00000000  000015c8  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000003ec  00000000  00000000  00001644  2**0
+  9 .debug_str    000003f8  00000000  00000000  000016cc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000006c  00000000  00000000  00001a30  2**0
+ 10 .debug_loc    000000cb  00000000  00000000  00001ac4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000050  00000000  00000000  00001a9c  2**0
+ 11 .debug_ranges 00000058  00000000  00000000  00001b8f  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -47,7 +45,7 @@ Disassembly of section .text:
   2c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
   30:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
   34:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
-  38:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  38:	0c 94 64 00 	jmp	0xc8	; 0xc8 <__vector_14>
   3c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
   40:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
   44:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
@@ -78,139 +76,142 @@ Disassembly of section .text:
   7c:	1d 92       	st	X+, r1
 
 0000007e <.do_clear_bss_start>:
-  7e:	a2 30       	cpi	r26, 0x02	; 2
+  7e:	a0 30       	cpi	r26, 0x00	; 0
   80:	b2 07       	cpc	r27, r18
   82:	e1 f7       	brne	.-8      	; 0x7c <.do_clear_bss_loop>
-  84:	0e 94 61 00 	call	0xc2	; 0xc2 <main>
-  88:	0c 94 84 00 	jmp	0x108	; 0x108 <_exit>
+  84:	0e 94 52 00 	call	0xa4	; 0xa4 <main>
+  88:	0c 94 91 00 	jmp	0x122	; 0x122 <_exit>
 
 0000008c <__bad_interrupt>:
   8c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-00000090 <LED_on>:
-#include "led.h"
-
-#include <avr/io.h>
-void LED_on(void){
-	PORTB |= (1<<5);// Set PORTB 5 to be high
-  90:	85 b1       	in	r24, 0x05	; 5
-  92:	80 62       	ori	r24, 0x20	; 32
-  94:	85 b9       	out	0x05, r24	; 5
-  96:	08 95       	ret
-
-00000098 <LED_off>:
-}
+00000090 <led_toggle>:
 void LED_off(void){
 	PORTB &= ~(1<<5);// Set PORTB 5 to Low
-  98:	85 b1       	in	r24, 0x05	; 5
-  9a:	8f 7d       	andi	r24, 0xDF	; 223
-  9c:	85 b9       	out	0x05, r24	; 5
-  9e:	08 95       	ret
-
-000000a0 <led_toggle>:
 }
 
-int led_toggle(int status){
-	//TODO: LED toggle code
-	if(status == 1){
-  a0:	01 97       	sbiw	r24, 0x01	; 1
-  a2:	29 f4       	brne	.+10     	; 0xae <led_toggle+0xe>
-		LED_on();
-  a4:	0e 94 48 00 	call	0x90	; 0x90 <LED_on>
-		status = 0;
-  a8:	80 e0       	ldi	r24, 0x00	; 0
-  aa:	90 e0       	ldi	r25, 0x00	; 0
-  ac:	08 95       	ret
-	}
-	else{
-	LED_off();
-  ae:	0e 94 4c 00 	call	0x98	; 0x98 <LED_off>
-	status = 1;
-  b2:	81 e0       	ldi	r24, 0x01	; 1
-  b4:	90 e0       	ldi	r25, 0x00	; 0
-		}
-	return status;
-  b6:	08 95       	ret
+led_toggle(){
+    PORTB ^= (1 << 5);
+  90:	95 b1       	in	r25, 0x05	; 5
+  92:	80 e2       	ldi	r24, 0x20	; 32
+  94:	89 27       	eor	r24, r25
+  96:	85 b9       	out	0x05, r24	; 5
+  98:	08 95       	ret
 
-000000b8 <port_init>:
+0000009a <port_init>:
 #include "led.h"
 #include "timer0.h"
 // Pre lab part
 int status = 0;
 void port_init(void){
 	DDRB = 0xFF;
-  b8:	8f ef       	ldi	r24, 0xFF	; 255
-  ba:	84 b9       	out	0x04, r24	; 4
+  9a:	8f ef       	ldi	r24, 0xFF	; 255
+  9c:	84 b9       	out	0x04, r24	; 4
 	DDRC = 0x00;
-  bc:	17 b8       	out	0x07, r1	; 7
+  9e:	17 b8       	out	0x07, r1	; 7
 	DDRD = 0x00; // Set PortB to be output and Port C and D be inputs
-  be:	1a b8       	out	0x0a, r1	; 10
-  c0:	08 95       	ret
+  a0:	1a b8       	out	0x0a, r1	; 10
+  a2:	08 95       	ret
 
-000000c2 <main>:
+000000a4 <main>:
 }
 //
 
 int main(void)
 {
 	port_init();
-  c2:	0e 94 5c 00 	call	0xb8	; 0xb8 <port_init>
+  a4:	0e 94 4d 00 	call	0x9a	; 0x9a <port_init>
 	timer0_init();
-  c6:	0e 94 74 00 	call	0xe8	; 0xe8 <timer0_init>
+  a8:	0e 94 5d 00 	call	0xba	; 0xba <timer0_init>
     while (1) 
     {
 	if(timer0_check_clear_compare() == 1){
-  ca:	0e 94 7b 00 	call	0xf6	; 0xf6 <timer0_check_clear_compare>
-  ce:	81 30       	cpi	r24, 0x01	; 1
-  d0:	e1 f7       	brne	.-8      	; 0xca <main+0x8>
-		status = led_toggle(status);	
-  d2:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
-  d6:	90 91 01 01 	lds	r25, 0x0101	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
-  da:	0e 94 50 00 	call	0xa0	; 0xa0 <led_toggle>
-  de:	90 93 01 01 	sts	0x0101, r25	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
-  e2:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__DATA_REGION_ORIGIN__>
-  e6:	f1 cf       	rjmp	.-30     	; 0xca <main+0x8>
+  ac:	0e 94 88 00 	call	0x110	; 0x110 <timer0_check_clear_compare>
+  b0:	81 30       	cpi	r24, 0x01	; 1
+  b2:	e1 f7       	brne	.-8      	; 0xac <main+0x8>
+		 led_toggle();	
+  b4:	0e 94 48 00 	call	0x90	; 0x90 <led_toggle>
+  b8:	f9 cf       	rjmp	.-14     	; 0xac <main+0x8>
 
-000000e8 <timer0_init>:
+000000ba <timer0_init>:
 #include <avr/interrupt.h>
 #include <stdint.h>
 
 void timer0_init(){
 	//TODO: initialise and configure timer0 to count to 10ms
 	TCCR0A = 0b00000010;
-  e8:	82 e0       	ldi	r24, 0x02	; 2
-  ea:	84 bd       	out	0x24, r24	; 36
+  ba:	82 e0       	ldi	r24, 0x02	; 2
+  bc:	84 bd       	out	0x24, r24	; 36
 	TCCR0B = 0b00000100;
-  ec:	84 e0       	ldi	r24, 0x04	; 4
-  ee:	85 bd       	out	0x25, r24	; 37
+  be:	84 e0       	ldi	r24, 0x04	; 4
+  c0:	85 bd       	out	0x25, r24	; 37
 	OCR0A = 0b01001101;
-  f0:	8d e4       	ldi	r24, 0x4D	; 77
-  f2:	87 bd       	out	0x27, r24	; 39
-  f4:	08 95       	ret
+  c2:	8d e4       	ldi	r24, 0x4D	; 77
+  c4:	87 bd       	out	0x27, r24	; 39
+  c6:	08 95       	ret
 
-000000f6 <timer0_check_clear_compare>:
+000000c8 <__vector_14>:
 }
+ISR(TIMER0_COMPA_vect){
+  c8:	1f 92       	push	r1
+  ca:	0f 92       	push	r0
+  cc:	0f b6       	in	r0, 0x3f	; 63
+  ce:	0f 92       	push	r0
+  d0:	11 24       	eor	r1, r1
+  d2:	2f 93       	push	r18
+  d4:	3f 93       	push	r19
+  d6:	4f 93       	push	r20
+  d8:	5f 93       	push	r21
+  da:	6f 93       	push	r22
+  dc:	7f 93       	push	r23
+  de:	8f 93       	push	r24
+  e0:	9f 93       	push	r25
+  e2:	af 93       	push	r26
+  e4:	bf 93       	push	r27
+  e6:	ef 93       	push	r30
+  e8:	ff 93       	push	r31
+	led_toggle();
+  ea:	0e 94 48 00 	call	0x90	; 0x90 <led_toggle>
+}
+  ee:	ff 91       	pop	r31
+  f0:	ef 91       	pop	r30
+  f2:	bf 91       	pop	r27
+  f4:	af 91       	pop	r26
+  f6:	9f 91       	pop	r25
+  f8:	8f 91       	pop	r24
+  fa:	7f 91       	pop	r23
+  fc:	6f 91       	pop	r22
+  fe:	5f 91       	pop	r21
+ 100:	4f 91       	pop	r20
+ 102:	3f 91       	pop	r19
+ 104:	2f 91       	pop	r18
+ 106:	0f 90       	pop	r0
+ 108:	0f be       	out	0x3f, r0	; 63
+ 10a:	0f 90       	pop	r0
+ 10c:	1f 90       	pop	r1
+ 10e:	18 95       	reti
 
+00000110 <timer0_check_clear_compare>:
 uint8_t timer0_check_clear_compare(){
 	if( TIFR0 & (1 << 1 )){ //TODO: check compare flag
-  f6:	95 b3       	in	r25, 0x15	; 21
-  f8:	89 2f       	mov	r24, r25
-  fa:	82 70       	andi	r24, 0x02	; 2
-  fc:	91 ff       	sbrs	r25, 1
-  fe:	03 c0       	rjmp	.+6      	; 0x106 <timer0_check_clear_compare+0x10>
+ 110:	95 b3       	in	r25, 0x15	; 21
+ 112:	89 2f       	mov	r24, r25
+ 114:	82 70       	andi	r24, 0x02	; 2
+ 116:	91 ff       	sbrs	r25, 1
+ 118:	03 c0       	rjmp	.+6      	; 0x120 <timer0_check_clear_compare+0x10>
 		//TODO: clear compare flag.
 		//Note: in datasheet this is done by writing 1 to the compare flag
 		TIFR0 = (1 << 1);// reset the compare flag
- 100:	82 e0       	ldi	r24, 0x02	; 2
- 102:	85 bb       	out	0x15, r24	; 21
+ 11a:	82 e0       	ldi	r24, 0x02	; 2
+ 11c:	85 bb       	out	0x15, r24	; 21
 		return 1;
- 104:	81 e0       	ldi	r24, 0x01	; 1
+ 11e:	81 e0       	ldi	r24, 0x01	; 1
 	}
 	return 0;
- 106:	08 95       	ret
+ 120:	08 95       	ret
 
-00000108 <_exit>:
- 108:	f8 94       	cli
+00000122 <_exit>:
+ 122:	f8 94       	cli
 
-0000010a <__stop_program>:
- 10a:	ff cf       	rjmp	.-2      	; 0x10a <__stop_program>
+00000124 <__stop_program>:
+ 124:	ff cf       	rjmp	.-2      	; 0x124 <__stop_program>
