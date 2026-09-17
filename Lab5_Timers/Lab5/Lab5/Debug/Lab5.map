@@ -21,6 +21,8 @@ Discarded input sections
  .text          0x00000000        0x0 timer0.o
  .data          0x00000000        0x0 timer0.o
  .bss           0x00000000        0x0 timer0.o
+ .text.timer0_check_clear_compare
+                0x00000000       0x12 timer0.o
  .text          0x00000000        0x0 d:/application/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  .data          0x00000000        0x0 d:/application/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  .bss           0x00000000        0x0 d:/application/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
@@ -182,7 +184,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x126
+.text           0x00000000      0x118
  *(.vectors)
  .vectors       0x00000000       0x68 D:/Application/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -272,22 +274,19 @@ END GROUP
  .text.port_init
                 0x0000009a        0xa main.o
                 0x0000009a                port_init
- .text.main     0x000000a4       0x16 main.o
+ .text.main     0x000000a4        0xc main.o
                 0x000000a4                main
  .text.timer0_init
-                0x000000ba        0xe timer0.o
-                0x000000ba                timer0_init
+                0x000000b0       0x1c timer0.o
+                0x000000b0                timer0_init
  .text.__vector_14
-                0x000000c8       0x48 timer0.o
-                0x000000c8                __vector_14
- .text.timer0_check_clear_compare
-                0x00000110       0x12 timer0.o
-                0x00000110                timer0_check_clear_compare
-                0x00000122                . = ALIGN (0x2)
+                0x000000cc       0x48 timer0.o
+                0x000000cc                __vector_14
+                0x00000114                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000122        0x0 d:/application/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00000122                _exit
-                0x00000122                exit
+ .fini9         0x00000114        0x0 d:/application/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00000114                _exit
+                0x00000114                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -306,11 +305,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000122        0x4 d:/application/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000114        0x4 d:/application/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000126                _etext = .
+                0x00000118                _etext = .
 
-.data           0x00800100        0x0 load address 0x00000126
+.data           0x00800100        0x0 load address 0x00000118
                 [!provide]                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -328,8 +327,8 @@ END GROUP
  *(.bss*)
  *(COMMON)
                 0x00800100                PROVIDE (__bss_end, .)
-                0x00000126                __data_load_start = LOADADDR (.data)
-                0x00000126                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000118                __data_load_start = LOADADDR (.data)
+                0x00000118                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800100        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -414,12 +413,12 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0x86e
+.debug_info     0x00000000      0x842
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 D:/Application/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_info    0x000005f4       0xae led.o
- .debug_info    0x000006a2      0x100 main.o
- .debug_info    0x000007a2       0xcc timer0.o
+ .debug_info    0x000006a2       0xd4 main.o
+ .debug_info    0x00000776       0xcc timer0.o
 
 .debug_abbrev   0x00000000      0x745
  *(.debug_abbrev)
@@ -428,12 +427,12 @@ END GROUP
  .debug_abbrev  0x00000609       0x9e main.o
  .debug_abbrev  0x000006a7       0x9e timer0.o
 
-.debug_line     0x00000000      0x39f
+.debug_line     0x00000000      0x396
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x134 D:/Application/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_line    0x00000134       0xb3 led.o
- .debug_line    0x000001e7       0xd3 main.o
- .debug_line    0x000002ba       0xe5 timer0.o
+ .debug_line    0x000001e7       0xc4 main.o
+ .debug_line    0x000002ab       0xeb timer0.o
 
 .debug_frame    0x00000000      0x104
  *(.debug_frame)
@@ -446,9 +445,9 @@ END GROUP
  .debug_str     0x00000000      0x208 D:/Application/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_str     0x00000208      0x18d led.o
                                 0x1c1 (size before relaxing)
- .debug_str     0x00000395       0x49 main.o
-                                0x1f0 (size before relaxing)
- .debug_str     0x000003de       0x1a timer0.o
+ .debug_str     0x00000395       0x2e main.o
+                                0x1ca (size before relaxing)
+ .debug_str     0x000003c3       0x35 timer0.o
                                 0x1e8 (size before relaxing)
 
 .debug_loc      0x00000000       0xcb

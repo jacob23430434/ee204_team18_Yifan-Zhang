@@ -13,6 +13,7 @@ main.d main.o: .././main.c \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\version.h \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h \
+ d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
  .././led.h .././timer0.h \
  d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdbool.h
 
@@ -43,6 +44,8 @@ d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\version.h:
 d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h:
 
 d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h:
+
+d:\application\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h:
 
 .././led.h:
 

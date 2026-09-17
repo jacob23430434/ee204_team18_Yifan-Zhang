@@ -1,5 +1,6 @@
 #include <util/delay.h>
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include "led.h"
 #include "timer0.h"
 // Pre lab part
@@ -15,11 +16,14 @@ int main(void)
 {
 	port_init();
 	timer0_init();
+	sei();
     while (1) 
     {
+		/*
 	if(timer0_check_clear_compare() == 1){
-		 led_toggle();	
+		led_toggle();
+		*/
 	}
-	}
+	
 }
 
