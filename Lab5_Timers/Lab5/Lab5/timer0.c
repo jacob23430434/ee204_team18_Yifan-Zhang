@@ -11,9 +11,20 @@ void timer0_init(){
 	TCCR0B |= (1<<CS02);
 	OCR0A = 77;
 	TIMSK0 |= (1<<OCIE0A);// ENABLE THE INTERRUPT
-	EIMSK |=(1<<INT0 & 1<<INT1);// enable external interrupt
-	EICRA |=(1<<ISC10 & 1<<ISC00); //any logic change will cause a trigger in INT 0 and 1
 }
+void interrupt_init(){
+	EIMSK |= (1<<INT0) | (1<<INT1);// enable external interrupt
+	EICRA |= (1<<ISC01)|(1<<ISC00); //Start with rising edge, then change to falling edage
+	sei();
+}
+void falling_edge_interrupt(){
+	EICRA |=(0<<ISC00); //Start with falling edge
+}
+void rising_edge_interrupt(){
+	EICRA |=(1<<ISC00); //Start with rising edge
+}
+	
+
 ISR(TIMER0_COMPA_vect){
 	counter++;//count each time
 	if(counter == 10){
@@ -21,9 +32,14 @@ ISR(TIMER0_COMPA_vect){
 		counter = 0;//reset counter
 	}
 }
-ISR(INT0_vect){
+
+
+ISR(INT0_vect){//reset the couter
 	
 }
+
+
+
 uint8_t timer0_check_clear_compare(){
 	if( TIFR0 & (1 << 1 )){ //TODO: check compare flag
 		//TODO: clear compare flag.
