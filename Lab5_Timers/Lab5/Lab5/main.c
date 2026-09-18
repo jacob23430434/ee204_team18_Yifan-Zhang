@@ -3,6 +3,7 @@
 #include <avr/interrupt.h>
 #include "led.h"
 #include "timer0.h"
+#include "uart.h"
 // Pre lab part
 int status = 0;
 void port_init(void){
@@ -14,16 +15,19 @@ void port_init(void){
 
 int main(void)
 {
+	uart_init();
 	port_init();
 	timer0_init();
+	interrupt_init();
 	sei();
     while (1) 
     {
-		/*
 	if(timer0_check_clear_compare() == 1){
 		led_toggle();
-		*/
 	}
-	
+	if(new_value == 1){
+		uart_transmit_8bit(counter_value);
+		}
+}
 }
 
