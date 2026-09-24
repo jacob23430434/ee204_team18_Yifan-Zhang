@@ -1,7 +1,8 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
-
+#include "switch.h"
+#include "timer.h"
 uint8_t LED[10]={
 	0x3F,//0
 	0x06,//1
@@ -30,6 +31,8 @@ uint8_t i;
 int main(void)
 {
 	port_init();
+	timer0_init();
+	interrupt_init();
 	while (1)
 	{
 		for(counter = 0;counter<= 9;counter++){
