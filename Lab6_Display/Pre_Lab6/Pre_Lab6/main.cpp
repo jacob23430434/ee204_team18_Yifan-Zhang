@@ -20,19 +20,25 @@ void port_init(void){
 	DDRD = 0x00; // Set PortB,C to be output and Port D be inputs
 	PORTB |= (1<<0);//set Ds1 to 1
 	PORTB &= ~(1<<1);//Set Ds2 to 0
-	PCMSK0 |= (1<<7);//Enable interrupt for PCINT7
-	PCICR |= (1<<0); //Enable interrupt for PCIE0
-	SREG |= (1<<7);//set the I bit in SREG register same as sei
-	sei();// enable gloabl interrupt
+	//PCMSK0 |= (1<<7);//Enable interrupt for PCINT7
+	//PCICR |= (1<<0); //Enable interrupt for PCIE0
+	//SREG |= (1<<7);//set the I bit in SREG register same as sei
+	//sei();// enable gloabl interrupt
 }
 uint8_t counter;
+uint8_t i;
 int main(void)
 {
 	port_init();
 	while (1)
 	{
 		for(counter = 0;counter<= 9;counter++){
-			_delay_ms(1000);//delay 1s
+			for(i = 1;i<=10;i++){
+				_delay_ms(100);//delay 100s to check the push bottom
+				if(!(PINB & (1<<PINB7))){
+					counter = 0;
+				}
+			}
 			PORTC = LED[counter] & 0x3F;// display the number to LED
 			PORTC |= (1<<6)|(1<<7);
 			if(LED[counter] & (1<<6))// check Sg 0 or 1
@@ -45,10 +51,12 @@ int main(void)
 			if(counter == 9){
 				counter = -1;
 			}
+			i = 1;//reset the 100ms loop
 		}
 	}
 }
-
+/*
 ISR(PCINT0_vect){
-	counter = 0;
+	//counter = 0;
 }
+*/
