@@ -42,6 +42,7 @@ void rising_edge_interrupt(void)
 ISR(TIMER0_COMPA_vect){
 	counter1++;//count each time
 	if(counter1 == 10){
+		flag ^= 1;// switch the flag status 
 		display_switch();
 		counter1 = 0;//reset counter
 	}
